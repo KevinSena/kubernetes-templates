@@ -17,3 +17,25 @@ spec:
       containers:
         - name: goserver
           image: "kevinsena/hello-go"
+          startupProbe:
+            httpGet:
+              path: /
+              port: 8080
+            periodSeconds: 4
+            failureThreshold: 30
+
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            periodSeconds: 3
+            failureThreshold: 1
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            periodSeconds: 5
+            failureThreshold: 1
+            timeoutSeconds: 1
+            successThreshold: 1
